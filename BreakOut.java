@@ -17,7 +17,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-
+//seitliche reflektion paddle
 
 public class BreakOut extends JFrame {//main-class, containing the whole game environment
 	/**

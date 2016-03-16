@@ -48,9 +48,14 @@ public void ElasticReflection (boolean top){//physically correct reflection at s
 		speedx=-speedx;
 	}
 }
-public void InelasticReflection(int speed){//reflection at the paddle, transfers its speed because of friction
+public void InelasticReflection(boolean top, int speed){//reflection at the paddle, transfers its speed because of friction
+	if(top){
 	speedy=-speedy;
 	speedx=speedx+speed;
+	}else{
+		speedy=speedy;
+		speedx=-speedx+speed;
+	}
 }
 public boolean Gameover(){//out of bounds?
 	if(posy+getRad()>950)
@@ -84,9 +89,19 @@ public boolean ReflectAtBrick(Brick b){//same with bricks
 		
 }
 public void ReflectAtRefl(Reflector r){//also with the paddle, but this time the reflector moves
-	if(r.contactRefl(posx, posy, getRad())){
+	/*if(r.contactRefl(posx, posy, getRad())){
 		InelasticReflection(r.getSpeed());
+	}*/
+	int determ=r.collisionOnTop(posx, posy, getRad());
+	if(determ==1){
+		InelasticReflection(false, r.getSpeed());
+		return;
 	}
+	else if(determ==2){
+		InelasticReflection(true, r.getSpeed());
+		return;
+	}
+	return;
 }
 
 }
