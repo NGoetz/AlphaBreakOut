@@ -9,7 +9,7 @@ int posy;
 int speed;
 int savex;
 	public Reflector() {
-		leny=20;
+		leny=8;
 		lenx=180;
 		posx=410;
 		posy=890;

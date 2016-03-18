@@ -60,6 +60,7 @@ public class BreakOut extends JFrame {//main-class, containing the whole game en
 				
 				ball.ReflectAtWalls();//check for reflection at all objects
 				ball.ReflectAtRefl(bar);
+				
 				for(int i=0; i<bricks.size();i++){
 					if(ball.ReflectAtBrick(bricks.elementAt(i))){
 						if(bricks.elementAt(i).getInt()==0){

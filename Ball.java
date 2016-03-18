@@ -1,4 +1,5 @@
-package alphabreakout;
+package alphabreakout;//ball caught in object
+
 
 public class Ball {
 	private int posy, posx;
@@ -9,7 +10,7 @@ public class Ball {
 		posy=860;
 		speedy=-1;//inital speed
 		speedx=0;
-		setRad(15);
+		setRad(12);
 	}
 	public int getRad() {
 		return rad;
@@ -45,7 +46,11 @@ public void ElasticReflection (boolean top){//physically correct reflection at s
 	if(top){
 		speedy=-speedy;
 	}else{
+		if(speedx!=0){
 		speedx=-speedx;
+		}else{
+			speedy=-speedy;
+		}
 	}
 }
 public void InelasticReflection(boolean top, int speed){//reflection at the paddle, transfers its speed because of friction
@@ -88,20 +93,31 @@ public boolean ReflectAtBrick(Brick b){//same with bricks
 	return false;
 		
 }
-public void ReflectAtRefl(Reflector r){//also with the paddle, but this time the reflector moves
+public boolean ReflectAtRefl(Reflector r){//also with the paddle, but this time the reflector moves
 	/*if(r.contactRefl(posx, posy, getRad())){
 		InelasticReflection(r.getSpeed());
 	}*/
 	int determ=r.collisionOnTop(posx, posy, getRad());
 	if(determ==1){
 		InelasticReflection(false, r.getSpeed());
-		return;
+		if(posy>r.getPosy()-2*rad-1&&posy<r.getPosy()+r.getLeny()){
+			posy=r.getPosy()-2*rad-1;
+		}else{
+			posy=r.getPosy()+r.getLeny()+1;
+		}
+		return true;
 	}
 	else if(determ==2){
 		InelasticReflection(true, r.getSpeed());
-		return;
+		posy=r.getPosy()-rad-1;
+		if(posy>r.getPosy()-2*rad-1&&posy<r.getPosy()+r.getLeny()){
+			posy=r.getPosy()-2*rad-1;
+		}else{
+			posy=r.getPosy()+r.getLeny()+1;
+		}
+		return true;
 	}
-	return;
+	return false;
 }
 
 }
