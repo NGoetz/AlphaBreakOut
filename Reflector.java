@@ -8,11 +8,11 @@ int posxp;
 int posy;
 int speed;
 int savex;
-	public Reflector() {
+	public Reflector(int py) {
 		leny=8;
 		lenx=180;
 		posx=410;
-		posy=890;
+		posy=py;
 		posxp=410;//saves the last position for getting the value for speed
 		speed=0;
 	}

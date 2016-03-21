@@ -32,23 +32,34 @@ public class BreakOut extends JFrame {//main-class, containing the whole game en
 	long time1;
 	long time2;
 	int level;
+	int posbar;
 	
 
 	public BreakOut() {
+		Dimension d=Toolkit.getDefaultToolkit().getScreenSize();
+		if(d.height>1000){
 		setPreferredSize(new Dimension(1000,1000));
+		posbar=890;
+		setLocation((d.width-1000)/2,(d.height-1000)/2-25);
+		}else{
+			setPreferredSize(new Dimension(1000,d.height-45));
+			posbar=d.height-100;
+			
+			setLocation((d.width-1000)/2,0);
+		}
 		setTitle("AlphaBreakOut");
 		clicked=false;
 		level=1;//start with level 1
 		time1=System.currentTimeMillis();;
 		time2=System.currentTimeMillis();;
-		Dimension d=Toolkit.getDefaultToolkit().getScreenSize();
-		setLocation((d.width-1000)/2,(d.height-1000)/2);
+		
+		
 		addWindowListener(new MyWindowListener());
 		addMouseListener(new MouseHelper());
 		addMouseMotionListener(new MouseMotionHelper());
 		bricks=brickcreator();
-		bar=new Reflector();
-		ball=new Ball();
+		bar=new Reflector(posbar);
+		ball=new Ball(posbar-24);
 		Gamesuit Game=new Gamesuit();
 		add(Game);
 		pack();
@@ -82,8 +93,8 @@ public class BreakOut extends JFrame {//main-class, containing the whole game en
 						e.printStackTrace();
 					}
 					bricks=brickcreator();
-					bar=new Reflector();
-					ball=new Ball();
+					bar=new Reflector(posbar);
+					ball=new Ball(posbar-24);
 					Gamesuit Game=new Gamesuit();
 					level=1;
 					
@@ -98,8 +109,8 @@ public class BreakOut extends JFrame {//main-class, containing the whole game en
 						e.printStackTrace();
 					}
 					bricks=brickcreator();
-					bar=new Reflector();
-					ball=new Ball();
+					bar=new Reflector(posbar);
+					ball=new Ball(posbar-24);
 					Gamesuit Game=new Gamesuit();
 					level++;
 					
@@ -121,8 +132,8 @@ public class BreakOut extends JFrame {//main-class, containing the whole game en
 		setBackground(Color.BLACK);
 		g.setColor(Color.ORANGE);
 		g.drawString("Welcome to AlphaBreakOut! Start by clicking. You can move the paddle with your mouse. The speed of the paddle ist physically correct transferred to the ball."
-				, 20, 700);
-		g.drawString("Some bricks have multiple lifes, but you have only one. If you succeed, your level ist raised. Current level: "+level+". By Niklas Götz", 20, 730);
+				, 20, 500);
+		g.drawString("Some bricks have multiple lifes, but you have only one. If you succeed, your level ist raised. Current level: "+level+". By Niklas Götz", 20, 530);
 		for(int i=0;i<bricks.size(); i++){
 			g.setColor(Color.BLACK);
 			g.draw3DRect(bricks.elementAt(i).getPosx(), bricks.elementAt(i).getPosy(), bricks.elementAt(i).getLenx(), bricks.elementAt(i).getLeny(),false);
@@ -200,15 +211,15 @@ public class BreakOut extends JFrame {//main-class, containing the whole game en
 						xspace=xspace+lenx+1;
 					else{
 						if(integ<7){
-							returner.add(new Brick(100+i*51,xspace,50,lenx,1));
+							returner.add(new Brick(50+i*51,xspace,50,lenx,1));
 							counter++;
 							xspace=xspace+lenx+1;
 						}else if(integ<9){
-							returner.add(new Brick(100+i*51,xspace,50,lenx,2));
+							returner.add(new Brick(50+i*51,xspace,50,lenx,2));
 							counter++;
 							xspace=xspace+lenx+1;
 						}else{
-							returner.add(new Brick(100+i*51,xspace,50,lenx,3));
+							returner.add(new Brick(50+i*51,xspace,50,lenx,3));
 							counter++;
 							xspace=xspace+lenx+1;
 						}

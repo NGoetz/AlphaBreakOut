@@ -2,12 +2,13 @@ package alphabreakout;//ball caught in object
 
 
 public class Ball {
-	private int posy, posx;
+	private int posy, posx, pystart;
 	private int speedy, speedx;
 	private static int rad;
-	public Ball() {
+	public Ball(int py) {
 		posx=485;
-		posy=860;
+		posy=py;
+		pystart=py;
 		speedy=-1;//inital speed
 		speedx=0;
 		setRad(12);
@@ -63,7 +64,7 @@ public void InelasticReflection(boolean top, int speed){//reflection at the padd
 	}
 }
 public boolean Gameover(){//out of bounds?
-	if(posy+getRad()>950)
+	if(posy>pystart+2*rad+15)
 		return true;
 	else
 		return false;
